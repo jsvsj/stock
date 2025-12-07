@@ -374,14 +374,14 @@ class MABacktestGUI:
 【波段策略结果】
 累计收益率：{self.backtest_result['total_return']:.2f}%
 最大回撤：{self.backtest_result['max_drawdown']:.2f}%
-最大回撤日期：{df.iloc[self.backtest_result['max_dd_idx']]['trade_date'].strftime('%Y-%m-%d')}
+最大回撤日期：{self.df.iloc[self.backtest_result['max_dd_idx']]['trade_date'].strftime('%Y-%m-%d')}
 交易次数：{self.backtest_result['trade_count']}次
 最终资产：{self.backtest_result['final_equity']:.2f}元
 
 【持有不动结果】
 累计收益率：{self.hold_result['total_return']:.2f}%
 最大回撤：{self.hold_result['max_drawdown']:.2f}%
-最大回撤日期：{df.iloc[self.hold_result['max_dd_idx']]['trade_date'].strftime('%Y-%m-%d')}
+最大回撤日期：{self.df.iloc[self.hold_result['max_dd_idx']]['trade_date'].strftime('%Y-%m-%d')}
 最终资产：{self.hold_result['final_equity']:.2f}元
 
 【对比结论】
