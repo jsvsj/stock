@@ -31,8 +31,14 @@ SLIPPAGE_RATE = 0.0002  # 滑点0.02%
 # ---------------------- 2. 获取并预处理数据 ----------------------
 def get_stock_data(code, start_date, end_date):
     """获取日线数据并计算均线（全版本兼容）"""
+
+    start = datetime.strptime(start_date, "%Y%m%d")
+    new_date = start - timedelta(days=50)
+    new_start_date = new_date.strftime("%Y%m%d")
+
+    
     # 获取日线数据
-    df = pro.daily(ts_code=code, start_date=start_date, end_date=end_date)
+    df = pro.daily(ts_code=code, start_date=new_start_date, end_date=end_date)
     # 按交易日期升序排列
     df = df.sort_values("trade_date").reset_index(drop=True)
     # 转换日期格式
@@ -43,6 +49,7 @@ def get_stock_data(code, start_date, end_date):
     df["ma20"] = df["close"].rolling(window=MA20).mean()
     # 修复fillna警告：用bfill()替代fillna(method="bfill")
     df = df.bfill()  # 向后填充空值（优先用后续数据填充前期均线空值）
+    df = df[df["trade_date"] >= start]
     return df
 
 
