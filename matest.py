@@ -8,7 +8,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # ---------------------- 1. 配置参数 ----------------------
 # Tushare token（需替换为自己的，注册地址：https://tushare.pro/register?reg=467877）
-TS_TOKEN = "847769c027878def477fd864c8c27bcd92ff367ca560450e935fde1c"
+TS_TOKEN = "你的token"
 ts.set_token(TS_TOKEN)
 pro = ts.pro_api()
 
