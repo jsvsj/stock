@@ -157,9 +157,16 @@ class MABacktestGUI:
         """获取并预处理股票数据（新增20均线向上判断）"""
         try:
             pro = ts.pro_api(params["token"])
+
+            start_date = params["start_date"]
+
+            start = datetime.strptime(start_date, "%Y%m%d")
+            new_date = start - timedelta(days=50)
+            new_start_date = new_date.strftime("%Y%m%d")
+
             df = pro.daily(
                 ts_code=params["stock_code"],
-                start_date=params["start_date"],
+                start_date=new_start_date,
                 end_date=params["end_date"]
             )
             if df.empty:
@@ -178,7 +185,7 @@ class MABacktestGUI:
             df["ma20_up"] = df["ma20"] > df["ma20"].shift(params["ma20_up_period"])
 
             df = df.bfill()  # 填充空值
-
+            df = df[df["trade_date"] >= start]
             self.pro = pro
             return df
         except Exception as e:
